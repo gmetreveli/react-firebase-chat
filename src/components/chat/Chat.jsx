@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import "./chat.css";
 import EmojiPicker from "emoji-picker-react";
 
 const Chat = () => {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
+
+  const endRef = useRef(null);
+
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
   const handleEmoji = (e) => {
     setText((prev) => prev + e.emoji);
     setOpen(false);
@@ -29,7 +36,96 @@ const Chat = () => {
       <div className="center">
         <div className="message">
           <img src="./avatar.png" alt="avatarPic" />
+          <div className="texts">
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum
+              aut maiores voluptates cupiditate, esse blanditiis doloremque.
+              Quia unde qui, ea sequi obcaecati totam asperiores dolorum
+              perferendis?
+            </p>
+            <span>1 min ago</span>
+          </div>
         </div>
+
+        <div className="message own">
+          <div className="texts">
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum
+              aut maiores voluptates cupiditate, esse blanditiis doloremque.
+              Quia unde qui, ea sequi obcaecati totam asperiores dolorum
+              perferendis?
+            </p>
+            <span>1 min ago</span>
+          </div>
+        </div>
+
+        <div className="message">
+          <img src="./avatar.png" alt="avatarPic" />
+          <div className="texts">
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum
+              aut maiores voluptates cupiditate, esse blanditiis doloremque.
+              Quia unde qui, ea sequi obcaecati totam asperiores dolorum
+              perferendis?
+            </p>
+            <span>1 min ago</span>
+          </div>
+        </div>
+
+        <div className="message own">
+          <div className="texts">
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum
+              aut maiores voluptates cupiditate, esse blanditiis doloremque.
+              Quia unde qui, ea sequi obcaecati totam asperiores dolorum
+              perferendis?
+            </p>
+            <span>1 min ago</span>
+          </div>
+        </div>
+
+        <div className="message">
+          <img src="./avatar.png" alt="avatarPic" />
+          <div className="texts">
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum
+              aut maiores voluptates cupiditate, esse blanditiis doloremque.
+              Quia unde qui, ea sequi obcaecati totam asperiores dolorum
+              perferendis?
+            </p>
+            <span>1 min ago</span>
+          </div>
+        </div>
+
+        <div className="message">
+          <img src="./avatar.png" alt="avatarPic" />
+          <div className="texts">
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum
+              aut maiores voluptates cupiditate, esse blanditiis doloremque.
+              Quia unde qui, ea sequi obcaecati totam asperiores dolorum
+              perferendis?
+            </p>
+            <span>1 min ago</span>
+          </div>
+        </div>
+
+        <div className="message own">
+          <div className="texts">
+            <img
+              src="https://images.pexels.com/photos/19155212/pexels-photo-19155212/free-photo-of-roof-on-a-yellow-building.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              alt="altPic"
+            />
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum
+              aut maiores voluptates cupiditate, esse blanditiis doloremque.
+              Quia unde qui, ea sequi obcaecati totam asperiores dolorum
+              perferendis?
+            </p>
+            <span>1 min ago</span>
+          </div>
+        </div>
+        <div ref={endRef}></div>
       </div>
       <div className="bottom">
         <div className="icons">
