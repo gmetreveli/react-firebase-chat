@@ -1,12 +1,35 @@
-import { auth } from "../../lib/firebase";
+import { toast } from "react-toastify";
+import { useChatStore } from "../../lib/chatStore";
+import { auth, db } from "../../lib/firebase";
+import { useUserStore } from "../../lib/userStore";
 import "./detail.css";
+import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 
 const Detail = () => {
+  const { ChatId, user, isCurrentUserBlocked, isReceiverBlocked, changeBlock } =
+    useChatStore();
+  const { currentUser } = useUserStore();
+
+  const handleBlock = async () => {
+    if (!user) return;
+    const userDoRef = doc(db, "users", currentUser.id);
+
+    try {
+      await updateDoc(userDoRef, {
+        blocked: isReceiverBlocked ? arrayRemove(user.id) : arrayUnion(user.id),
+      });
+      changeBlock();
+    } catch (err) {
+      console.log(err);
+      toast.error(err.message);
+    }
+  };
+
   return (
     <div className="detail">
       <div className="user">
-        <img src="./avatar.png" alt="avatarPic" />
-        <h2>Jane Doe</h2>
+        <img src={user?.avatar || "./avatar.png"} alt="avatarPic" />
+        <h2>{user?.username}</h2>
         <p>Lorem ipsum dolor sit amet.</p>
       </div>
       <div className="info">
@@ -82,7 +105,13 @@ const Detail = () => {
             <img src="./arrowUp.png" alt="arrowUpPic" />
           </div>
         </div>
-        <button>Block User</button>
+        <button onClick={handleBlock}>
+          {isCurrentUserBlocked
+            ? "You are Blocked"
+            : isReceiverBlocked
+            ? "User Blocked"
+            : "Block User"}
+        </button>
         <button className="logout" onClick={() => auth.signOut()}>
           Logout
         </button>
